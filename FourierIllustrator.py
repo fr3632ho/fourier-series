@@ -22,11 +22,9 @@ class FourierIllustrator:
         circle_x = x_pos + radius*np.cos(t)
         circle_y = y_pos + radius*np.sin(t)
         plt.plot(circle_x,circle_y,color='k')
-        #plt.draw()
 
     def draw_dot(self,x,y):
         plt.plot(x,y,marker='o',color='k')
-        #plt.draw()
 
     def clear_axis(self):
         plt.pause(0.001)
@@ -48,7 +46,6 @@ class FourierIllustrator:
                 x_prime = prev_x + rad * np.cos(j*theta)
                 y_prime = prev_y + rad * np.sin(j*theta)
                 self.draw_dot([prev_x,x_prime],[prev_y,y_prime])
-                #plt.draw()
                 prev_x = x_prime
                 prev_y = y_prime
 
@@ -64,5 +61,7 @@ class FourierIllustrator:
             theta+=step
             self.clear_axis()
 
+
+n = input("Choose your n: ")
 fourierTest = FourierIllustrator()
-fourierTest.draw(20)
+fourierTest.draw(int(n))
