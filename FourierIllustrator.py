@@ -5,6 +5,7 @@ import matplotlib.patches as patch
 
 class FourierIllustrator:
     PI = np.pi
+    step = (2*PI)/60;
 
     def __init__(self):
         self.x_pos = 0
@@ -31,34 +32,39 @@ class FourierIllustrator:
         plt.cla()
         plt.axis([-50,100,-50,50])
 
+    def cycles(self,x_start,y_start,n,theta):
+        prev_x = x_start
+        prev_y = y_start
+        for i in range(1,n+1):
+            j = 2*i-1
+            rad = self.radius *(4 / (j * FourierIllustrator.PI))
+            self.draw_circle(prev_x,prev_y,rad)
+            x_prime = prev_x + rad * np.cos(j*theta)
+            y_prime = prev_y + rad * np.sin(j*theta)
+            self.draw_dot([prev_x,x_prime],[prev_y,y_prime])
+            prev_x = x_prime
+            prev_y = y_prime
+        return [prev_x,prev_y];
+
+    def update_wave(self,wave):
+        for i in range(1,len(wave)):
+            wave[i][0] += 5*FourierIllustrator.step
+        return wave
+
     def draw(self,n):
-        self.init_figure()
-        step = (2*FourierIllustrator.PI)/60;
-        theta=0
         wave = []
+        self.init_figure()
+        theta=0
         while theta < 16*FourierIllustrator.PI:
-            prev_x = self.x_pos
-            prev_y = self.y_pos
-            for i in range(1,n+1):
-                j = 2*i-1
-                rad = self.radius *(4 / (j * FourierIllustrator.PI))
-                self.draw_circle(prev_x,prev_y,rad)
-                x_prime = prev_x + rad * np.cos(j*theta)
-                y_prime = prev_y + rad * np.sin(j*theta)
-                self.draw_dot([prev_x,x_prime],[prev_y,y_prime])
-                prev_x = x_prime
-                prev_y = y_prime
-
-            wave.insert(0,[50,prev_y])
-            for i in range(1,len(wave)):
-                wave[i][0] += 5*step
-            self.draw_dot([prev_x,wave[0][0]],[prev_y,wave[0][1]])
+            xy = self.cycles(0,0,n,theta)
+            wave.insert(0,[50,xy[1]])
+            wave = self.update_wave(wave)
+            self.draw_dot([xy[0],wave[0][0]],[xy[1],wave[0][1]])
             plt.plot(*zip(*wave))
-            plt.draw()
-
             if len(wave) >= 500:
                 wave.pop()
-            theta+=step
+            theta+=FourierIllustrator.step;
+            plt.draw()
             self.clear_axis()
 
 
