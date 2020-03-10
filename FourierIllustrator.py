@@ -22,18 +22,14 @@ class FourierIllustrator:
         circle_x = x_pos + radius*np.cos(t)
         circle_y = y_pos + radius*np.sin(t)
         plt.plot(circle_x,circle_y,color='k')
-        plt.draw()
+        #plt.draw()
 
     def draw_dot(self,x,y):
         plt.plot(x,y,marker='o',color='k')
-        plt.draw()
-
-    def draw_wave(self,x,y):
-        plt.plot(x,y,marker='.',color='k')
-        plt.draw()
+        #plt.draw()
 
     def clear_axis(self):
-        plt.pause(0.01)
+        plt.pause(0.001)
         plt.cla()
         plt.axis([-50,100,-50,50])
 
@@ -42,7 +38,7 @@ class FourierIllustrator:
         step = (2*FourierIllustrator.PI)/60;
         theta=0
         wave = []
-        while theta < 8*FourierIllustrator.PI:
+        while theta < 16*FourierIllustrator.PI:
             prev_x = self.x_pos
             prev_y = self.y_pos
             for i in range(1,n+1):
@@ -52,20 +48,21 @@ class FourierIllustrator:
                 x_prime = prev_x + rad * np.cos(j*theta)
                 y_prime = prev_y + rad * np.sin(j*theta)
                 self.draw_dot([prev_x,x_prime],[prev_y,y_prime])
-                plt.draw()
+                #plt.draw()
                 prev_x = x_prime
                 prev_y = y_prime
 
-            wave.insert(0,prev_y)
-            for i in range(0,len(wave)):
-                index = (4*i*step)+50
-                if i == 0:
-                    self.draw_dot([prev_x,index],[prev_y,wave[i]])
-                self.draw_dot(index,wave[i])
-            if len(wave) >= 75:
+            wave.insert(0,[50,prev_y])
+            for i in range(1,len(wave)):
+                wave[i][0] += 5*step
+            self.draw_dot([prev_x,wave[0][0]],[prev_y,wave[0][1]])
+            plt.plot(*zip(*wave))
+            plt.draw()
+
+            if len(wave) >= 500:
                 wave.pop()
             theta+=step
             self.clear_axis()
 
 fourierTest = FourierIllustrator()
-fourierTest.draw(4)
+fourierTest.draw(20)
