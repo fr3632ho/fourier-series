@@ -2,6 +2,7 @@ import numpy as np,scipy
 import time
 import matplotlib.pyplot as plt
 import matplotlib.patches as patch
+import DFT
 
 class FourierIllustrator:
     PI = np.pi
@@ -69,5 +70,4 @@ class FourierIllustrator:
 
 
 n = input("Choose your n: ")
-fourierTest = FourierIllustrator()
-fourierTest.draw(int(n))
+fourierTest = FourierIllustrator().draw(n)
