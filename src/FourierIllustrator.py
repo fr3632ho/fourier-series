@@ -70,4 +70,4 @@ class FourierIllustrator:
 
 
 n = input("Choose your n: ")
-fourierTest = FourierIllustrator().draw(n)
+fourierTest = FourierIllustrator().draw(int(n))
