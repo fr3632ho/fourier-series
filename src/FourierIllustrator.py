@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patch
 import DFT
 
+y_test = [10,10,10,10,10,10,10,-10,-10,-10,-10,-10,-10,-10,10,10,10,10,10,10,10,-10,-10,-10,-10,-10,-10,-10,10,10,10,10,10,10,10,-10,-10,-10,-10,-10,-10,-10,10,10,10,10,10,10,10,-10,-10,-10,-10,-10,-10,-10]
+
 class FourierIllustrator:
     PI = np.pi
     step = (2*PI)/60;
@@ -20,7 +22,7 @@ class FourierIllustrator:
         plt.show()
 
     def draw_circle(self,x_pos,y_pos,radius):
-        t = np.linspace(0,2*FourierIllustrator.PI,100)
+        t = np.linspace(0,2*FourierIllustrator.PI,35)
         circle_x = x_pos + radius*np.cos(t)
         circle_y = y_pos + radius*np.sin(t)
         plt.plot(circle_x,circle_y,color='k')
@@ -52,11 +54,11 @@ class FourierIllustrator:
             wave[i][0] += 5*FourierIllustrator.step
         return wave
 
-    def draw(self,n):
+    def draw(self,n,laps):
         wave = []
         self.init_figure()
         theta=0
-        while theta < 16*FourierIllustrator.PI:
+        while theta < 2*laps*FourierIllustrator.PI:
             xy = self.cycles(0,0,n,theta)
             wave.insert(0,[50,xy[1]])
             wave = self.update_wave(wave)
@@ -68,6 +70,6 @@ class FourierIllustrator:
             plt.draw()
             self.clear_axis()
 
-
-n = input("Choose your n: ")
-fourierTest = FourierIllustrator().draw(int(n))
+n = int(input("Choose your n: "))
+laps = int(input("choose laps: "))
+fourierTest = FourierIllustrator().draw(n,laps)
