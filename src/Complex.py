@@ -7,11 +7,11 @@ class Complex:
         self.im = im
         self.freq = freq
 
-    def amp():
+    def amp(self):
         return math.sqrt(self.re * self.re + self.im*self.im)
 
-    def phase():
-        return math.atan2(self.im/self.re)
+    def phase(self):
+        return math.atan2(self.im,self.re)
 
-    def frequency():
+    def frequency(self):
         return self.freq
