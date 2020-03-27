@@ -12,3 +12,6 @@ The formula used for the series can be found on the [wiki](https://www.wikiwand.
 The implementation used is the [discrete fourier transform](https://www.wikiwand.com/en/Discrete_Fourier_transform) which, according to the wiki, converts a finite sequence of equally-spaced samples of a signal and converts it into a discrete-time fourier transform which is a complex-valued function of frequency!
 
 The formula used can be found on the wiki!
+
+#### How to use:
+Simply launch the program using python3 and you will be directed on how to use the program from the start() method in FourierIllustrator.py
