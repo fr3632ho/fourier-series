@@ -1,5 +1,5 @@
 # Fourier Transforms and Series
-
+This program is intended as a side project, for fun, to visualize the fourier series/transform. Still under implementation!
 ### Visualization
 Matplotlib has been used for the visualization part of the program. This might be changed later to increase performance.
 
