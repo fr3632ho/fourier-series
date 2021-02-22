@@ -5,7 +5,7 @@ import numpy as np,scipy
 class DFT:
 
     def __init__(self):
-        print("hej")
+        print("DFT Initiated")
 
     def transform(self,y):
         N = len(y)

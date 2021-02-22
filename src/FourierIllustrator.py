@@ -23,6 +23,7 @@ def setup(image):
     x = DFT.DFT().transform(x)
     y = DFT.DFT().transform(y)
     return x,y
+
 def create_random_list(n,size):
     y=[]
     seed(1)
@@ -35,7 +36,7 @@ class FourierIllustrator:
     step = (2*PI)/60;
 
     def __init__(self):
-        self.DFT = DFT.DFT()
+        #self.DFT = DFT.DFT()
         self.x_pos = 0
         self.y_pos = 0
         self.radius = 20
@@ -115,28 +116,30 @@ class FourierIllustrator:
         wave =[]
         self.init_figure()
         time=0
-        while time < 10*FourierIllustrator.PI:
-            vx,vy = self.cycles(-width/4,50,time,0,x), self.cycles(50,-width/4,time,np.pi/2,y)
-            vect = [vx[0],vy[1]]
-            wave.insert(0,vect)
-            self.draw_dot([vx[0],vx[1]],[vect[0],vect[1]])
-            self.draw_dot([vy[0],vy[1]],[vect[0],vect[1]])
-            plt.plot(*zip(*wave))
+        try:
+            while time < 10*FourierIllustrator.PI:
+                vx,vy = self.cycles(-width/4,50,time,0,x), self.cycles(50,-width/4,time,np.pi/2,y)
+                vect = [vx[0],vy[1]]
+                wave.insert(0,vect)
+                self.draw_dot([vx[0],vx[1]],[vect[0],vect[1]])
+                self.draw_dot([vy[0],vy[1]],[vect[0],vect[1]])
+                plt.plot(*zip(*wave))
 
-            dt = (2*np.pi) / len(x)
-            time+= dt;
-            plt.draw()
-            self.clear_axis()
+                dt = (2*np.pi) / len(x)
+                time+= dt;
+                plt.draw()
+                self.clear_axis()
 
-            if time > 2*np.pi:
-                wave = []
-                time = 0
+        except KeyboardInterrupt:
+            print("GoodBye")
+            exit(-1)
+
 
 def parse_data(image):
     inp_file = sys.stdin
 
 def start():
-    if int(input("Series or Transform (1/0)")) == 0:
+    if int(input("Series or Transform (1/0) : ")) == 0:
         fourierX, fourierY = setup(y_square)
         fourierX.sort(key=lambda x: x.amp, reverse=True)
         fourierY.sort(key=lambda y: y.amp, reverse=True)
